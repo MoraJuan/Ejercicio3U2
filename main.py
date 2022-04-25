@@ -1,33 +1,27 @@
 from Registro import Registro
 import csv
 if __name__ == '__main__':
-    dia = 30
-    hora = 24
     listaObjeto=[]
     
     
-    for i in range(hora):
-        listaObjeto.append([0] * dia)
-        
+    for i in range(30):
+        listaObjeto.insert(0,[])
+        for j in range(24):
+           listaObjeto[i].insert(0,'Sin datos registrados')     
+            
     archivo=open('mes.csv')
     reader=csv.reader(archivo,delimiter=',')
     for fila in reader:
         dia = int(fila[0])
         hora = int(fila[1])
-        temp = fila[2]
+        temperatura = fila[2]
         humedad = fila[3]
         presion = fila[4]
-        listaObjeto[dia][hora]=Registro(dia, hora, temp, humedad, presion)
+        UnRegistro = Registro(dia, hora, temperatura, humedad, presion)
+        listaObjeto[dia-1].append(UnRegistro) 
         
-    numero=int(input('Ingrese numero de VP : '))
-    opcion = None
-
-    for objeto in listaObjeto:
-        if numero == objeto.getNumero():
-            while opcion!='d':
-                print('a- Cant millas')
-                print('b- Acum millas')
-                print('c- Canjear millas')
-                print('d- Salir')
-                opcion=input('\nIngrese opcion: ')
+    cant1=UnRegistro.TemperaturaMaxima(listaObjeto)
+        
+    print('{}'.format(cant1))
+  
                     
